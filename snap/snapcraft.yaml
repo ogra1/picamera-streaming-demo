@@ -33,7 +33,7 @@ parts:
     python-packages:
       - picamera
     build-environment:
-      - READTHEDOCS: True
+      - READTHEDOCS: [ True ]
   pilibs:
     plugin: nil
     override-pull: |
