@@ -1,0 +1,45 @@
+name: picamera-streaming-demo
+version: '0.1'
+summary: Simple package to stream web video from the RPi CSI camera interface
+description: |
+  A small demo snap, streaming video from a camera attached to the
+  Raspberry Pi CSI interface to the web on port 8000. 
+
+  To watch the video stream go to http://<IP address of your Board>:8000/
+
+grade: stable
+confinement: strict
+
+apps:
+  pistream:
+    command: pistream
+    daemon: simple
+    plugs:
+      - mount-observe
+      - network
+      - network-bind
+      - opengl
+
+parts:
+  picamera:
+    plugin: python
+    python-version: python3
+    python-packages:
+      - picamera
+  pilibs:
+    plugin: nil
+    override-pull: |
+      sudo add-apt-repository ppa:ubuntu-raspi2/ppa
+      sudo apt-get update
+    build-packages:
+      - software-properties-common
+    stage-packages:
+      - libraspberrypi-bin
+    after: [ picamera ]
+  pistream:
+    source: .
+    plugin: nil
+    override-build: |
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp pistream $SNAPCRAFT_PART_INSTALL/bin/
+    after: [ pilibs ]
