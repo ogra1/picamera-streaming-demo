@@ -41,8 +41,6 @@ parts:
       sudo apt-get update
     build-packages:
       - software-properties-common
-    stage-packages:
-      - libraspberrypi-bin
     after: [ picamera ]
   pistream:
     source: .
@@ -50,4 +48,6 @@ parts:
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       cp pistream $SNAPCRAFT_PART_INSTALL/bin/
+    stage-packages:
+      - libraspberrypi-bin
     after: [ pilibs ]
