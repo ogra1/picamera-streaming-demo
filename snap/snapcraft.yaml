@@ -30,9 +30,8 @@ parts:
     python-version: python3
     python-packages:
       - picamera
-    override-build: |
-      export READTHEDOCS=True
-      snapcraftctl build
+    build-environment:
+      - READTHEDOCS: True
   pilibs:
     plugin: nil
     override-pull: |
