@@ -10,7 +10,7 @@ description: |
 grade: stable
 confinement: strict
 
-base: core
+base: core18
 
 architectures:
   - build-on: armhf
