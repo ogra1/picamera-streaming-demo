@@ -10,11 +10,13 @@ description: |
 grade: stable
 confinement: strict
 
-base: core18
+base: core22
 
 architectures:
   - build-on: armhf
-    run-on: armhf
+    build-for: armhf
+  - build-on: armhf64
+    build-for: armhf64
 
 apps:
   pistream:
@@ -34,14 +36,6 @@ parts:
       - picamera
     build-environment:
       - READTHEDOCS: 'True'
-  pilibs:
-    plugin: nil
-    override-pull: |
-      sudo add-apt-repository ppa:ubuntu-raspi2/ppa
-      sudo apt-get update
-    build-packages:
-      - software-properties-common
-    after: [ picamera ]
   pistream:
     source: .
     plugin: nil
@@ -50,4 +44,3 @@ parts:
       cp pistream $SNAPCRAFT_PART_INSTALL/bin/
     stage-packages:
       - libraspberrypi-bin
-    after: [ pilibs ]
